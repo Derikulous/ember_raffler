@@ -11,10 +11,28 @@
 // about supported directives.
 //
 //= require jquery
-//= require jquery_ujs
 //= require handlebars
 //= require ember
 //= require ember-data
 //= require_self
 //= require raffler
 Raffler = Ember.Application.create();
+
+Raffler.store = DS.Store.create({
+  revision: 4,
+  adapter: DS.RESTAdapter.create()
+});
+
+Raffler.Router = Ember.Router.extend({
+  root: Ember.Route.extend({
+    index: Ember.Route.extend({
+      route: '/'
+    })
+  })
+})
+
+Raffler.router = Raffler.Router.create({
+  location: 'history'
+});
+
+Raffler.initialize(Raffler.router);
